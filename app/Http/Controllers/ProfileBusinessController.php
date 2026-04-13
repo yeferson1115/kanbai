@@ -17,35 +17,59 @@ class ProfileBusinessController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        
-        if(auth()->user()->hasRole('Usuario')){
-            //dd('dfds');
-        }
-        $user = User::with('roles')->with('permissions')->find(auth()->user()->id);
-        $users = User::with('roles','permissions','business');
-       
+public function index()
+{
+    $authUser = auth()->user();
 
-        
-        $busine = Business::with('departaments','cities','asesor')->where('state',1)->find(auth()->user()->business->id);
-        $news=News::get();
+    // Verificar si el usuario tiene business
+    
+    if (!$authUser->business) {
+        $business = Business::firstOrCreate(
+            ['nit' => '000000000'], // condición de búsqueda
+            [
+                'company_name' => 'kanbai',
+                'billing_email' => $authUser->email,
+                'address' => 'N/A',
+                'department_id' => null,
+                'city_id' => null,
+                'state' => 1,
+                'user_id' => $authUser->id,
+                'term' => null
+            ]
+        );
 
-         $projects = Projects::with(['timeline', 'productos', 'comercio', 'updates'])
-            ->where('bussine_id', auth()->user()->business->id)
-            ->get()
-            ->map(function ($project) {
-                $total = $project->productos->sum(function ($product) {
-                    return $product->price * $product->quantity;
-                });
+        // Asignar el business al usuario
+        $authUser->business_id = $business->id;
+        $authUser->save();
+        $authUser->load('business');
+    }
 
-                $project->total = $total;
-                return $project;
+    $user = User::with('roles','permissions')->find($authUser->id);
+
+    $busine = Business::with('departaments','cities','asesor')
+        ->where('state',1)
+        ->find($authUser->business->id);
+
+    $news = News::get();
+
+    $projects = Projects::with(['timeline', 'productos', 'comercio', 'updates'])
+        ->where('bussine_id', $authUser->business->id)
+        ->get()
+        ->map(function ($project) {
+            $total = $project->productos->sum(function ($product) {
+                return $product->price * $product->quantity;
             });
 
-            $users = User::with('roles','permissions','business')->where('business_id',auth()->user()->business_id)->get();
-        return view ('site.business.index', compact('user','users','busine','news','projects','users'));
-    }
+            $project->total = $total;
+            return $project;
+        });
+
+    $users = User::with('roles','permissions','business')
+        ->where('business_id', $authUser->business_id)
+        ->get();
+
+    return view('site.business.index', compact('user','users','busine','news','projects'));
+}
 
     /**
      * Show the form for creating a new resource.
