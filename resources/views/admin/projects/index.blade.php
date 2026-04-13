@@ -152,9 +152,6 @@ $(document).ready(function () {
         var $wrapper = $(this);
         var table = $wrapper.find('.datatables').DataTable();
 
-        $wrapper.find('.filterTipo').on('change', function () {
-            table.column(3).search($(this).val()).draw();
-        });
 
         $wrapper.find('.filterAsesor').on('change', function () {
             table.column(10).search($(this).val()).draw();

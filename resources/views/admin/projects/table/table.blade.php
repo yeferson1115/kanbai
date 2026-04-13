@@ -1,14 +1,6 @@
 <div class="projects-table-wrapper">
     <div class="row mb-2 g-2">
-        <div class="col-md-3">
-            <label for="" class="form-label">Filtrar por Tipo:</label>
-            <select class="form-select filterTipo">
-                <option value="">Todos</option>
-                <option value="Easybuy">Easybuy</option>
-                <option value="Proyecto">Proyecto</option>
-            </select>
-        </div>
-        <div class="col-md-3">
+                <div class="col-md-4">
             <label for="" class="form-label">Filtrar por Asesor:</label>
             <select class="form-select filterAsesor">
                 <option value="">Todos</option>
