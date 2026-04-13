@@ -54,14 +54,6 @@
                                     <i class="fa fa-file-excel-o" aria-hidden="true"></i> Exportar Excel
                                 </a>
                                 @endif
-                                @if($easygift==0)
-                                    @can('Crear Proyectos')
-                                    <a href="{{ url('project/create') }}" 
-                                    class="btn btn-primary waves-effect waves-float waves-light">
-                                        <i class="fa fa-plus-circle" aria-hidden="true"></i> Nuevo Proyecto
-                                    </a>
-                                    @endcan
-                                @endif
                             </div>
                         </li>
                         </ul>

@@ -1,6 +1,15 @@
 <div class="projects-table-wrapper">
-    <div class="row mb-2 g-2">
-                <div class="col-md-4">
+    <div class="row mb-2 g-2 align-items-end">
+        @if($easygift==0)
+            @can('Crear Proyectos')
+                <div class="col-md-auto">
+                    <a href="{{ url('project/create') }}" class="btn btn-primary waves-effect waves-float waves-light">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i> Nuevo Proyecto
+                    </a>
+                </div>
+            @endcan
+        @endif
+        <div class="col-md-4">
             <label for="" class="form-label">Filtrar por Asesor:</label>
             <select class="form-select filterAsesor">
                 <option value="">Todos</option>
