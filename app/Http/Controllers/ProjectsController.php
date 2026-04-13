@@ -78,25 +78,30 @@ class ProjectsController extends Controller
         }
        
 
-        if(auth()->user()->hasrole('Comercio')){
-            $todos = Projects::with('comercio','empresa')->where('seller_id',auth()->user()->id)->where('easybuy',$easygift)->orderBy('created_at', 'desc')->get();
-            $ejecucion = Projects::with('comercio','empresa')->where('seller_id',auth()->user()->id)->where('easybuy',$easygift)->where('state',0)->orderBy('created_at', 'desc')->get(); 
-            $cancelados = Projects::with('comercio','empresa')->where('seller_id',auth()->user()->id)->where('easybuy',$easygift)->where('state',2)->orderBy('created_at', 'desc')->get(); 
-            $finalizadas = Projects::with('comercio','empresa')->where('seller_id',auth()->user()->id)->where('easybuy',$easygift)->where('state',1)->orderBy('created_at', 'desc')->get(); 
-        }elseif(auth()->user()->hasrole('Empresa')){
-            $todos = Projects::with('comercio','empresa')->where('bussine_id',auth()->user()->id)->where('easybuy',$easygift)->orderBy('created_at', 'desc')->get();
-            $ejecucion = Projects::with('comercio','empresa')->where('bussine_id',auth()->user()->id)->where('easybuy',$easygift)->where('state',0)->orderBy('created_at', 'desc')->get(); 
-            $cancelados = Projects::with('comercio','empresa')->where('bussine_id',auth()->user()->id)->where('easybuy',$easygift)->where('state',2)->orderBy('created_at', 'desc')->get(); 
-            $finalizadas = Projects::with('comercio','empresa')->where('bussine_id',auth()->user()->id)->where('easybuy',$easygift)->where('state',1)->orderBy('created_at', 'desc')->get(); 
-        }else{
-            $todos = Projects::with('comercio','empresa')->where('easybuy',$easygift)->orderBy('created_at', 'desc')->get();
-            $ejecucion = Projects::with('comercio','empresa')->where('state',0)->where('easybuy',$easygift)->orderBy('created_at', 'desc')->get(); 
-            $cancelados = Projects::with('comercio','empresa')->where('state',2)->where('easybuy',$easygift)->orderBy('created_at', 'desc')->get(); 
-            $finalizadas = Projects::with('comercio','empresa')->where('state',1)->where('easybuy',$easygift)->orderBy('created_at', 'desc')->get(); 
+        $projectsBaseQuery = Projects::with('comercio', 'empresa')->where('easybuy', $easygift);
+
+        if (auth()->user()->hasrole('Comercio')) {
+            $projectsBaseQuery->where('seller_id', auth()->user()->id);
+        } elseif (auth()->user()->hasrole('Empresa')) {
+            $projectsBaseQuery->where('bussine_id', auth()->user()->id);
         }
 
-        
-        return view('admin.projects.index', compact('todos','ejecucion','cancelados','finalizadas','easygift'));
+        $todos = (clone $projectsBaseQuery)->orderBy('created_at', 'desc')->get();
+        $ejecucion = $todos->where('state', 0)->values();
+        $finalizadas = $todos->where('state', 1)->values();
+        $cancelados = $todos->where('state', 2)->values();
+        $porCompletar = $todos->where('state', 9)->values();
+
+        $asesores = $todos
+            ->pluck('asesor')
+            ->filter(function ($asesor) {
+                return !empty(trim((string) $asesor));
+            })
+            ->unique()
+            ->sort()
+            ->values();
+
+        return view('admin.projects.index', compact('todos', 'ejecucion', 'cancelados', 'finalizadas', 'porCompletar', 'asesores', 'easygift'));
     }
 
     /**
