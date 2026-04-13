@@ -42,6 +42,9 @@
                         <li class="nav-item mb-1" role="presentation">
                             <button class="nav-link" id="pills-ejecucion-tab" data-bs-toggle="pill" data-bs-target="#pills-ejecucion" type="button" role="tab" aria-controls="pills-ejecucion" aria-selected="false">@if($easygift==1) EasyGift @else Proyectos @endif cancelados: {{count($cancelados)}}</button>
                         </li>
+                        <li class="nav-item mb-1" role="presentation">
+                            <button class="nav-link" id="pills-por-completar-tab" data-bs-toggle="pill" data-bs-target="#pills-por-completar" type="button" role="tab" aria-controls="pills-por-completar" aria-selected="false">@if($easygift==1) EasyGift @else Proyectos @endif por completar: {{count($porCompletar)}}</button>
+                        </li>
                          <li class="nav-item mb-1 ms-auto" role="presentation">
                             <div class="d-flex gap-2">
                                 <!-- Botón de Exportación a Excel -->
@@ -65,23 +68,29 @@
                         <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
 
-                        @include('admin.projects.table.table',['data'=>$todos])
+                        @include('admin.projects.table.table',['data'=>$todos, 'asesores' => $asesores])
 
                         </div>
                         
                         <div class="tab-pane fade" id="pills-canseladas" role="tabpanel" aria-labelledby="pills-canseladas-tab">
 
-                        @include('admin.projects.table.table',['data'=>$ejecucion])
+                        @include('admin.projects.table.table',['data'=>$ejecucion, 'asesores' => $asesores])
 
                         </div>
                         <div class="tab-pane fade" id="pills-aprobadas" role="tabpanel" aria-labelledby="pills-aprobadas-tab">
                        
-                            @include('admin.projects.table.table',['data'=>$finalizadas])
+                            @include('admin.projects.table.table',['data'=>$finalizadas, 'asesores' => $asesores])
 
                         </div>
                         <div class="tab-pane fade" id="pills-ejecucion" role="tabpanel" aria-labelledby="pills-ejecucion-tab">
                        
-                            @include('admin.projects.table.table',['data'=>$cancelados])
+                            @include('admin.projects.table.table',['data'=>$cancelados, 'asesores' => $asesores])
+                            
+                        </div>
+
+                        <div class="tab-pane fade" id="pills-por-completar" role="tabpanel" aria-labelledby="pills-por-completar-tab">
+                       
+                            @include('admin.projects.table.table',['data'=>$porCompletar, 'asesores' => $asesores])
                             
                         </div>
 
@@ -139,12 +148,14 @@
 <script>
 
 $(document).ready(function () {
-    var table = $('.datatables').DataTable();
+    $('.projects-table-wrapper').each(function () {
+        var $wrapper = $(this);
+        var table = $wrapper.find('.datatables').DataTable();
 
-    $('.filterTipo').on('change', function () {
-        var selected = $(this).val();
-        // La columna Tipo es la número 3 (índice 3 empieza en 0)
-        table.column(3).search(selected).draw();
+
+        $wrapper.find('.filterAsesor').on('change', function () {
+            table.column(10).search($(this).val()).draw();
+        });
     });
 });
 
