@@ -1,0 +1,355 @@
+<div class="row" id="list-products">
+
+    <div class="col-md-12 filtro-mobile mb-2 ">
+        <div class="row">
+            <div class="col-8">
+                <h2 class="title-categoryorsub">
+                @if($info['namesubcategory']==null)
+                {{$info['namecategory']}}
+                @else
+                    {{$info['namesubcategory']}}
+                @endif
+                </h2>
+            </div>
+            <div class="col-4">
+                <button type="button" class="btn btn-warning btn-filter" id='toggle'>Filtro</button>                    
+            </div>
+        </div>
+        <div id='content' class="is-hidden">
+
+            @if($info['subcategory_id']=null)
+            <div class="row mb-4 mt-5">
+                <h4 class="title-filter">Subcategorias</h4>
+                <input type="hidden" value="{{$subcategories = App\Models\SubCategories::where('category_id',$info['category_id'])->with('category')->get()}}">
+                @foreach ($subcategories as $subcategory)                
+                    <div class="col-6">
+                        <a class="dropdown-item bt-subcategory-filter {{ (request()->is('catalogo/$subcategory->category->slug/subcategory->slug')) ? 'active' : '' }}" href="/catalogo/{{ $subcategory->category->slug }}/{{ $subcategory->slug }}">
+                        <img class="image-subcategory-list-product" src="{{ asset('images/subcategories/'.$subcategory->file.'') }}" alt="{{ $subcategory->name }}">
+                        {{ $subcategory->name }}</a>
+                    </div>                 
+                @endforeach
+            </div>
+            @endif                
+            <!--<div class="row background-item-filter mb-4">                    
+                <div class="col-9">
+                    <label class="form-check-label" for="shipping_price">Envío gratis</label>
+                </div>
+                <div class="col-3">
+                    <div class="form-check form-switch">            
+                        <input class="form-check-input" type="checkbox" wire:model="shipping_price" id="shipping_price">                        
+                    </div>
+                </div>
+            </div>-->
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Ordenar por</label>
+                <select class="form-control" wire:model="keyword" id="exampleFormControlSelect1">
+                    <option >Seleccione</option>
+                    <option value="1">Por defecto</option>
+                    <option value="2" >Últimos</option>
+                    <option value="3">Por Precio: bajo a alto</option>
+                    <option value="4">Por Precio: alto a bajo</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <div class="mall-property mt-3">
+                    <div class="mall-property__label" >
+                        Precio                        
+                    </div>
+                    <div class="mall-slider-handles" data-start="1000" data-end="1000" data-min="1" data-max="10000000" data-target="price" style="width: 100%" wire:ignore></div>
+                    <div class="row filter-container-1">
+                    <div class="col-md-6 col-6">
+                        <input type="text" class="form-control" data-min="price" id="skip-value-lower"  wire:model.lazy="min_price" readonly>  
+                    </div>
+                    <div class="col-md-6 col-6">
+                        <input type="text"  class="form-control" data-max="price" id="skip-value-upper"  wire:model.lazy="max_price" readonly>
+                    </div>                        
+                </div>
+            </div>
+        </div>        
+    </div>    
+
+</div>
+
+    
+        <div class="col-md-3 filtro-desk">
+            <h2 class="title-categoryorsub">
+            @if($info['namesubcategory']==null)
+                {{$info['namecategory']}}
+            @else
+                {{$info['namesubcategory']}}
+            @endif
+            </h2>
+            <hr>
+        @if($info['subcategory_id']==null)
+        <div class="row mb-4 mt-5">
+            <h4 class="title-filter">Subcategorias</h4>
+            <input type="hidden" value="{{$subcategories = App\Models\SubCategories::where('category_id',$info['category_id'])->with('category')->get()}}">
+            @foreach ($subcategories as $subcategory)                
+                <div class="col-sm-6">
+                    <a class="dropdown-item bt-subcategory-filter {{ (request()->is('catalogo/$subcategory->category->slug/subcategory->slug')) ? 'active' : '' }}" href="/catalogo/{{ $subcategory->category->slug }}/{{ $subcategory->slug }}">
+                    <img class="image-subcategory-list-product" src="{{ asset('images/subcategories/'.$subcategory->file.'') }}" alt="{{ $subcategory->name }}">
+                    {{ $subcategory->name }}</a>
+                </div>                 
+            @endforeach
+        </div>
+        @endif
+
+        <!--<div class="row background-item-filter mb-4">
+            
+            <div class="col-9">
+                <label class="form-check-label" for="shipping_price">Envío gratis</label>
+            </div>
+            <div class="col-3">
+                <div class="form-check form-switch">            
+                    <input class="form-check-input" type="checkbox" wire:model="shipping_price" id="shipping_price">                        
+                </div>
+            </div>
+        </div>-->
+        
+           
+
+
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Ordenar por</label>
+                <select class="form-control" wire:model="keyword" id="exampleFormControlSelect1">
+                    <option >Seleccione</option>
+                    <option value="1">Por defecto</option>
+                    <option value="2" >Últimos</option>
+                    <option value="3">Por Precio: bajo a alto</option>
+                    <option value="4">Por Precio: alto a bajo</option>
+                </select>
+            </div>
+
+            <div class="form-group m-b5">
+                <div class="mall-property mt-3">
+                    <div class="mall-property__label" >
+                        Precio                        
+                     </div>
+                     <div class="mall-slider-handles" data-start="1000" data-end="1000" data-min="1" data-max="10000000" data-target="price" style="width: 100%" wire:ignore></div>
+                     <div class="row filter-container-1">
+                        <div class="col-md-6">
+                           <input type="text" class="form-control" data-min="price" id="skip-value-lower"  wire:model.lazy="min_price" readonly>  
+                        </div>
+                        <div class="col-md-6">
+                           <input type="text"  class="form-control" data-max="price" id="skip-value-upper"  wire:model.lazy="max_price" readonly>
+                        </div>                        
+                     </div>
+                </div>
+            </div>
+            <div class="form-group mt-5">
+                <div class="card-kanbai">
+                    <div class="card-body">
+                        <div class="row ">
+                            <div class="col-4"></div>
+                            <div class="col-6 text-center">
+                                <div class="circle-icon text-center">
+                                    <img src="{{ asset('images/purple-calendar.png') }}" width="120">
+                                </div>
+                            </div>
+                            <div class="col-12 text-center">
+                                <h5 class="mt-2 title-proyect">¿Tienes un proyecto especifico?</h5>
+                            </div>                            
+                            <div class="col-12 text-center font-14 mt-3">Permitenos crear una propuesta 100% adaptada a tus necesidades</div>
+                            
+                            <div class="col-12 text-center mt-3">
+                                <a href="/solicitud-personalizada" class="btn btn-shedule">Crear Proyecto</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            
+
+           
+
+        </div>
+
+
+       
+        <div class="col-md-9 mt-5 products-list-mobile">
+            <div class="row">
+
+            
+            @foreach($products as $item)
+            <!--Estructura desk-->
+   
+            <div class="col-md-4 list-products-desk">
+                <a href="/catalogo/producto/{{$item->id}}/{{$item->name}}">
+                    <div class="card mb-3 card-related" >
+                        <div class="card-body cardproducts padding-0">
+                            
+                                <div class="col-md-12 col-12 mb-3 padding-7 cont-img-desk" >
+                                    @if(count($item->gallery)>0)
+                                        <img  class="image-list-product-desk" src="{{ asset('images/products/thumbnail/list/'.$item->gallery[0]->file.'') }}">
+                                    @endif
+                                
+                                </div>
+                                <div class="col-md-12 mt-1 info-related">
+                                    @if(count($item->colores)>0)
+                                    <div style="display: inline-flex;">
+                                        <ul class="list-color">
+                                            @foreach($item->colores as $color)
+                                            <li><label style="background: {{$color->color}};"></label></li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    @endif
+                                    @if(count($item->tallas)>0)
+                                    <div style="display: inline-flex;width: 100%;">
+                                        <ul class="list-tallas">
+                                            @foreach($item->tallas as $talla)
+                                            <li><label>{{$talla->talla}}</label></li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    @endif
+                                    <h4 class="title-product-desk">{{$item->name}}</h4>                                    
+                                    <p class="price">
+                                        
+                                        <img src="{{ asset('images/Precio_Icono.png') }}" alt="Rango" class="img-d img-fluid">
+                                        Desde: <span>${{number_format($item->escalas[0]->price, 0, 0, '.')}}</span> 
+                                    </p>
+                                    <p class="quantity">
+                                    
+                                    <input type="hidden" value="{{$cantidadminima = App\Models\ProductsPriceRange::where('product_id',$item->id)->min('quantity_min')}}">
+                                   
+                                        <img src="{{ asset('images/Cantidad_Icono.png') }}" alt="Pedido minímo" class="img-d img-fluid">
+                                        Pedido minímo: <span>{{$cantidadminima }} </span>
+                                    </p>
+                                </div>
+                            </div>
+                        
+                    </div>
+                </a>
+            </div>
+            <!--Fin Estructura desk-->
+            <!--Estructura mobile-->
+            
+            <div class="col-6 list-products-mobile">
+                <a href="/catalogo/producto/{{$item->id}}/{{$item->name}}">
+                    <div class="card card-products-mobile mb-3 mt-3" >
+                        <div class="card-body cardproducts">
+                            <div class="row card-mobile-list">
+                                <div class="col-md-12 col-12 content-image-mobile" >
+                                
+                                <div class="image-thumnail" @if(count($item->gallery)>0) style="background-image: url({{ asset('images/products/thumbnail/list/'.$item->gallery[0]->file.'') }});" @endif></div>
+                                 
+                                </div>
+                                <div class="col-md-12 col-12 info-list-mobile">
+                                @if(count($item->colores)>0)
+                                    <div style="display: inline-flex;">
+                                        <ul class="list-color">
+                                            @foreach($item->colores as $color)
+                                            <li><label style="background: {{$color->color}};"></label></li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    @endif
+                                    @if(count($item->tallas)>0)
+                                    <div style="display: inline-flex;width: 100%;">
+                                        <ul class="list-tallas">
+                                            @foreach($item->tallas as $talla)
+                                            <li><label>{{$talla->talla}}</label></li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    @endif
+                                    <h5 class="card-title title-card-products mb-2 title-card-mobile-list">{{$item->name}}</h5>
+                                    <p class="price">
+                                        <img src="{{ asset('images/Precio_Icono.png') }}" alt="Rango" class="img-d img-fluid">
+                                        Desde: <span>${{number_format($item->escalas[0]->price, 0, 0, '.')}}</span> 
+                                    </p>
+                                    <!--<p class="card-text delivery_time delivery-lis-product"><i class="bi bi-truck"></i> Recibelo en {{$item->delivery_time}}</p>-->
+                                    <p class="quantity">
+                                        <img src="{{ asset('images/Cantidad_Icono.png') }}" alt="Pedido minímo" class="img-d img-fluid">
+                                        Pedido minímo: <span>{{$cantidadminima }}</span>
+                                    </p>
+                                
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </a>                
+            </div>
+
+            <!--Fin Estructura mobile-->
+          @endforeach
+            </div>
+           
+          </div>
+          {{ $products->links() }}
+</div>
+
+@push('scripts')
+
+<script>
+var boton = $('ul.pagination li:last button');
+//$(boton).text('Siguiente');
+$(boton).addClass('next-pagination');
+
+var boton0 = $('ul.pagination li:last span');
+//$(boton0).text('Anterior');
+$(boton0).addClass('next-pagination');
+
+
+
+var boton1 = $('ul.pagination li:first span');
+//$(boton1).text('Anterior');
+$(boton1).addClass('previus-pagination');
+
+var boton2 = $('ul.pagination li:first button');
+//$(boton2).text('Anterior');
+$(boton2).addClass('previus-pagination');
+
+        document.addEventListener('livewire:load', function () {
+
+
+            
+          var $propertiesForm = $('.mall-category-filter');
+           $('.mall-slider-handles').each(function () {
+               var el = this;
+               var start_min=Math.round(@this.start_min);
+               var start_max=Math.round(@this.start_max);
+               noUiSlider.create(el, {
+                   start: [start_min, start_max],
+                   connect: true,
+                   tooltips: true,
+                   range: {
+                       min: [start_min],
+                       max: [start_max]
+                   },
+                   pips: {
+                       mode: 'range',
+                       density: 10
+                   }
+               }).on('change', function (values) {
+                    @this.set('min_price',values[0]),
+                    @this.set('max_price',values[1]),
+                   $('[data-min="' + el.dataset.target + '"]').val(values[0])
+                   $('[data-max="' + el.dataset.target + '"]').val(values[1])
+                   //$propertiesForm.trigger('submit');
+               });
+           })
+        })
+
+        const elToggle  = document.querySelector("#toggle");
+        const elContent = document.querySelector("#content");
+
+        elToggle.addEventListener("click", function() {
+        elContent.classList.toggle("is-hidden");
+        });
+
+        $(document).on('click', '.page-item', function (e) {
+  $("html, body").animate({ scrollTop: 0 }, "fast");
+  return false;
+});
+    </script>
+
+
+@endpush
+
+          
