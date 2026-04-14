@@ -76,7 +76,7 @@
                             <span class="user-status">{!! Auth::user()->hasRole('Administrador') ? 'Administrador' :(Auth::user()->hasRole('Comercio') ? 'Comercio' : 'Usuario')  !!} </span>
 
                         </div>
-                        <span class="avatar"><img class="round" src="{{ asset('assets/images/portrait/small/avatar-s-11.jpg') }}" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
+                        <span class="avatar"><img class="round" src="{{ asset('images/comercio.png') }}" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user">
                         <a class="dropdown-item" href="page-profile.html"><i class="me-50" data-feather="user"></i> Perfil</a>

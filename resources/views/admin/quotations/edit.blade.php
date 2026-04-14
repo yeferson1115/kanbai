@@ -183,6 +183,7 @@
                                         <li class="list-group-item"><b>E-mail:</b> {{$quotation->email}}</li>
                                         <li class="list-group-item"><b>Dirección:</b> {{$quotation->address}}</li>
                                         <li class="list-group-item"><b>Observaciones:</b> {{$quotation->observations}}</li>
+                                        <li class="list-group-item"><b>Canal:</b> {{$quotation->channel}}</li>
                                     </ul>
                                 </div>
                                

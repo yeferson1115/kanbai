@@ -52,7 +52,7 @@
                                             <th class="sorting"  rowspan="1" colspan="1">Opciones</th>
                                             <th class="sorting"  rowspan="1" colspan="1">#</th>
                                             <th class="sorting"  rowspan="1" colspan="1">Estado</th>
-                                            <th class="sorting"  rowspan="1" colspan="1">Asesor</th>
+                                            <!--<th class="sorting"  rowspan="1" colspan="1">Asesor</th>-->
                                             <th class="sorting"  rowspan="1" colspan="1">E-mail</th>
                                             <th class="sorting"  rowspan="1" colspan="1">Cliente</th>
                                             <th class="sorting"  rowspan="1" colspan="1">Celular</th>
@@ -86,7 +86,7 @@
                                             @if($item->state==2) <span class="badge  text-white bg-danger">Cancelada</span> @endif
                                             @if($item->state==3) <span class="badge  text-white bg-info">Ganada</span> @endif
                                             @if($item->state==5) <span class="badge  text-white bg-danger">Cancelada por el usuario</span> @endif</td>
-                                            <td>@if($item->user!=null){{ $item->user->name }} {{ $item->user->lastname }}@endif</td>
+                                            <!--<td>@if($item->user!=null){{ $item->user->name }} {{ $item->user->lastname }}@endif</td>-->
                                             <td>{{ $item->email }}</td>
                                             <td>{{ $item->name }}</td>
                                             <td>{{ $item->cellphone }}</td>

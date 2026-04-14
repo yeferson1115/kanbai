@@ -34,7 +34,7 @@
                         <div class="row"  onclick="location.href='{{ URL::to('/') }}/pedidos-empresa'">                    
                         <div class="col-12" style="text-align: center;cursor: pointer;">
                             <label class="icon-indicator-user icon-indicator-user-blue" >
-                               <i class="fa-solid fa-list-check"></i> <span style="color: #636363;">{{count($projects)}}</span>
+                               <i class="fa-solid fa-list-check"></i> <span style="color: #636363;">Total pedidos: {{count($projects)}}</span>
                             </label>
                         </div>
                         <div class="col-12 mt-2">                            
@@ -61,35 +61,36 @@
             </li>
             <li>                
                 <a href="/mi-perfil" class="link-menu-user">
-                    <i class="bi bi-info menu-p-mobil"></i> Inicio 
-                    <i class="fa fa-chevron-right float-right mt-2" aria-hidden="true"></i>
+                    <i class="fa-solid fa-house menu-p-mobil"></i> Inicio 
+                    <i class="fa fa-chevron-right float-right mt-menu-user" aria-hidden="true"></i>
                 </a>
                 
             </li>
-            <li>                
+            <!--<li>                
                 <a class="link-menu-user" href="/mi-informacion">
                     <i class="bi bi-person menu-p-mobil"></i> Mi información
                     <i class="fa fa-chevron-right float-right mt-2" aria-hidden="true"></i>
                 </a>                
-            </li>  
+            </li>--> 
             <li>                
                 <a class="link-menu-user" href="/usuarios-empresa">
-                    <i class="fa fa-users menu-p-mobil" aria-hidden="true"></i> usuarios
-                    <i class="fa fa-chevron-right float-right mt-2" aria-hidden="true"></i>
+                    <i class="fa-regular fa-user menu-p-mobil"></i> usuarios
+                    <i class="fa fa-chevron-right float-right mt-menu-user" aria-hidden="true"></i>
+                    
                 </a>                
             </li>  
             <li>                
                 <a class="link-menu-user" href="/pedidos-empresa">
-                    <i class="bi bi-folder menu-p-mobil"></i> Pedidos
-                    <i class="fa fa-chevron-right float-right mt-2" aria-hidden="true"></i>
+                    <i class="fa-solid fa-list menu-p-mobil"></i> Pedidos
+                    <i class="fa fa-chevron-right float-right mt-menu-user" aria-hidden="true"></i>
                 </a>                
             </li>
-            <!--<li>                
+            <li>                
                 <a class="link-menu-user">
-                    <i class="bi bi-person menu-p-mobil"></i>Balance financiero
-                    <i class="fa fa-chevron-right float-right mt-2" aria-hidden="true"></i>
+                    <i class="fa-regular fa-credit-card menu-p-mobil"></i> Métodos de pago
+                    <i class="fa fa-chevron-right float-right mt-menu-user" aria-hidden="true"></i>
                 </a>                
-            </li> -->
+            </li>
             <li>
                 <button  onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="nav-link menu-user logout-user link-menu-user" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">
                     <i class="bi bi-box-arrow-right menu-p-mobil"></i> Cerrar Sesión 

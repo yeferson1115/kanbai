@@ -4236,11 +4236,15 @@ padding: 0px 15px;
   }
 
   .menu-profile-mobile li i.menu-p-mobil{
-    background: #E4E4E4;
+    background: #F8FAFC;
     padding: 7px;
     border-radius: 7px;
     font-size: 25px;
     margin-right: 15px;
+    color: #231B71;
+  }
+  .mt-menu-user{
+    margin-top: 15px;
   }
   .previos-profile{
     color: #7F00FF;
@@ -4366,15 +4370,13 @@ padding: 0px 15px;
 
   .cont-indicator-user{
     background: #ffff;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    border-top-right-radius: 30px;
-    border-top-left-radius: 30px;
+    border-radius: 30px;
+    padding: 15px 40px;
   }
 
 .icon-indicator-user{    
-    padding: 15px 20px;
-    font-size: 25px;
+    padding: 7px 20px;
+    font-size: 14px;
     border-radius: 15px;
 }
 .icon-indicator-user-blue{
