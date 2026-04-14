@@ -65,7 +65,7 @@ public function updatedKeyword($value)
                             ->whereHas('escalas', function ($query){
                                 $query->whereBetween('price', [$this->min_price,$this->max_price])
                                 ->orwhereBetween('price',[$this->min_price,$this->max_price])->orderBy('price', 'asc');
-                            })->orderBy('new', 'DESC')->orderBy('views', 'DESC')->paginate($this->pagination),
+                            })->orderByDesc('created_at')->orderByDesc('views')->paginate($this->pagination),
                         ]);
                     }else{
                         return view('livewire.products',[
@@ -74,7 +74,7 @@ public function updatedKeyword($value)
                                 $query->whereBetween('price', [$this->min_price,$this->max_price])
                                 ->orwhereBetween('price',[$this->min_price,$this->max_price])->orderBy('price', 'asc');
                             })
-                            ->where('shipping_free',$this->shipping_price)->orderBy('new', 'DESC')->orderBy('views', 'DESC')->paginate($this->pagination),
+                            ->where('shipping_free',$this->shipping_price)->orderByDesc('created_at')->orderByDesc('views')->paginate($this->pagination),
                         ]);
                     }
                     
@@ -86,7 +86,7 @@ public function updatedKeyword($value)
                             ->whereHas('escalas', function ($query){
                                 $query->whereBetween('price', [$this->min_price,$this->max_price])
                                 ->orwhereBetween('price',[$this->min_price,$this->max_price])->orderBy('price', 'asc');
-                            })->orderBy('new', 'DESC')->orderBy('views', 'DESC')->paginate($this->pagination),
+                            })->orderByDesc('created_at')->orderByDesc('views')->paginate($this->pagination),
                         ]);
                     }else{
                         return view('livewire.products',[
@@ -95,7 +95,7 @@ public function updatedKeyword($value)
                                 $query->whereBetween('price', [$this->min_price,$this->max_price])
                                 ->orwhereBetween('price',[$this->min_price,$this->max_price])->orderBy('price', 'asc');
                             })
-                            ->where('shipping_free',$this->shipping_price)->orderBy('new', 'DESC')->orderBy('views', 'DESC')->paginate($this->pagination),
+                            ->where('shipping_free',$this->shipping_price)->orderByDesc('created_at')->orderByDesc('views')->paginate($this->pagination),
                         ]);
                     }
                     
@@ -111,7 +111,7 @@ public function updatedKeyword($value)
                                 $query->whereBetween('price', [$this->min_price,$this->max_price])
                                 ->orwhereBetween('price',[$this->min_price,$this->max_price])->orderBy('price', 'asc');
                             })
-                            ->orderBy('updated_at', 'desc')->orderBy('new', 'DESC')->orderBy('views', 'DESC')->paginate($this->pagination),
+                            ->orderByDesc('created_at')->orderByDesc('views')->paginate($this->pagination),
                         ]);
                     }else{
                         return view('livewire.products',[
@@ -121,8 +121,7 @@ public function updatedKeyword($value)
                                 $query->whereBetween('price', [$this->min_price,$this->max_price])
                                 ->orwhereBetween('price',[$this->min_price,$this->max_price])->orderBy('price', 'asc');
                             })
-                            ->orderBy('updated_at', 'desc')
-                            ->where('shipping_free',$this->shipping_price)->orderBy('new', 'DESC')->orderBy('views', 'DESC')->paginate($this->pagination),
+                            ->where('shipping_free',$this->shipping_price)->orderByDesc('created_at')->orderByDesc('views')->paginate($this->pagination),
                         ]);
                     }
                     
@@ -136,7 +135,7 @@ public function updatedKeyword($value)
                                 $query->whereBetween('price', [$this->min_price,$this->max_price])
                                 ->orwhereBetween('price',[$this->min_price,$this->max_price])->orderBy('price', 'asc');
                             })
-                            ->orderBy('updated_at', 'desc')->orderBy('new', 'DESC')->orderBy('views', 'DESC')->paginate($this->pagination),
+                            ->orderByDesc('created_at')->orderByDesc('views')->paginate($this->pagination),
                         ]);
                     }else{
                         return view('livewire.products',[
@@ -146,8 +145,7 @@ public function updatedKeyword($value)
                                 $query->whereBetween('price', [$this->min_price,$this->max_price])
                                 ->orwhereBetween('price',[$this->min_price,$this->max_price])->orderBy('price', 'asc');
                             })
-                            ->orderBy('updated_at', 'desc')
-                            ->where('shipping_free',$this->shipping_price)->orderBy('new', 'DESC')->orderBy('views', 'DESC')->paginate($this->pagination),
+                            ->where('shipping_free',$this->shipping_price)->orderByDesc('created_at')->orderByDesc('views')->paginate($this->pagination),
                         ]);
                     }
                     
@@ -163,7 +161,7 @@ public function updatedKeyword($value)
                                 $query->whereBetween('price', [$this->min_price,$this->max_price])
                                 ->orwhereBetween('price',[$this->min_price,$this->max_price])->orderBy('price', 'asc');
                             })
-                            ->orderBy('price', 'ASC')->orderBy('new', 'DESC')->orderBy('views', 'DESC')->paginate($this->pagination),
+                            ->orderBy('price', 'ASC')->orderByDesc('created_at')->orderByDesc('views')->paginate($this->pagination),
                         ]);
                     }else{
                         return view('livewire.products',[
@@ -174,7 +172,7 @@ public function updatedKeyword($value)
                                 ->orwhereBetween('price',[$this->min_price,$this->max_price])->orderBy('price', 'asc');
                             })
                             ->orderBy('price', 'ASC')
-                            ->where('shipping_free',$this->shipping_price)->orderBy('new', 'DESC')->orderBy('views', 'DESC')->paginate($this->pagination),
+                            ->where('shipping_free',$this->shipping_price)->orderByDesc('created_at')->orderByDesc('views')->paginate($this->pagination),
                         ]);
                     }
                     
@@ -188,7 +186,7 @@ public function updatedKeyword($value)
                                 $query->whereBetween('price', [$this->min_price,$this->max_price])
                                 ->orwhereBetween('price',[$this->min_price,$this->max_price])->orderBy('price', 'asc');
                             })
-                            ->orderBy('price', 'ASC')->orderBy('new', 'DESC')->orderBy('views', 'DESC')->paginate($this->pagination),
+                            ->orderBy('price', 'ASC')->orderByDesc('created_at')->orderByDesc('views')->paginate($this->pagination),
                         ]);
                     }else{
                         return view('livewire.products',[
@@ -199,7 +197,7 @@ public function updatedKeyword($value)
                                 ->orwhereBetween('price',[$this->min_price,$this->max_price])->orderBy('price', 'asc');
                             })
                             ->orderBy('price', 'ASC')
-                            ->where('shipping_free',$this->shipping_price)->orderBy('new', 'DESC')->orderBy('views', 'DESC')->paginate($this->pagination),
+                            ->where('shipping_free',$this->shipping_price)->orderByDesc('created_at')->orderByDesc('views')->paginate($this->pagination),
                         ]);
                     }
                     
@@ -215,7 +213,7 @@ public function updatedKeyword($value)
                                     $query->whereBetween('price', [$this->min_price,$this->max_price])
                                     ->orwhereBetween('price',[$this->min_price,$this->max_price])->orderBy('price', 'asc');
                                 })
-                                ->orderBy('price', 'ASC')->orderBy('new', 'DESC')->orderBy('views', 'DESC')->paginate($this->pagination),
+                                ->orderBy('price', 'ASC')->orderByDesc('created_at')->orderByDesc('views')->paginate($this->pagination),
                             ]);
                         }else{
                             return view('livewire.products',[
@@ -226,7 +224,7 @@ public function updatedKeyword($value)
                                     ->orwhereBetween('price',[$this->min_price,$this->max_price])->orderBy('price', 'asc');
                                 })
                                 ->orderBy('price', 'ASC')
-                            ->where('shipping_free',$this->shipping_price)->orderBy('new', 'DESC')->orderBy('views', 'DESC')->paginate($this->pagination),
+                            ->where('shipping_free',$this->shipping_price)->orderByDesc('created_at')->orderByDesc('views')->paginate($this->pagination),
                             ]);
                         }
                         
@@ -240,7 +238,7 @@ public function updatedKeyword($value)
                                     $query->whereBetween('price', [$this->min_price,$this->max_price])
                                     ->orwhereBetween('price',[$this->min_price,$this->max_price])->orderBy('price', 'asc');
                                 })
-                                ->orderBy('price', 'ASC')->orderBy('new', 'DESC')->orderBy('views', 'DESC')->paginate($this->pagination),
+                                ->orderBy('price', 'ASC')->orderByDesc('created_at')->orderByDesc('views')->paginate($this->pagination),
                             ]);
                         }else{
                             return view('livewire.products',[
@@ -251,7 +249,7 @@ public function updatedKeyword($value)
                                     ->orwhereBetween('price',[$this->min_price,$this->max_price])->orderBy('price', 'asc');
                                 })
                                 ->orderBy('price', 'ASC')
-                            ->where('shipping_free',$this->shipping_price)->orderBy('new', 'DESC')->orderBy('views', 'DESC')->paginate($this->pagination),
+                            ->where('shipping_free',$this->shipping_price)->orderByDesc('created_at')->orderByDesc('views')->paginate($this->pagination),
                             ]);
                         }
                         
@@ -266,7 +264,7 @@ public function updatedKeyword($value)
                         ->orwhereBetween('price',[$this->min_price,$this->max_price])->orderBy('price', 'asc');
                     })->where('name', 'LIKE', '%'.$this->info["search"].'%')
                     ->orWhere('description', 'LIKE', '%'.$this->info["search"].'%')
-                    ->orderBy('new', 'DESC')->orderBy('views', 'DESC')->paginate($this->pagination),
+                    ->orderByDesc('created_at')->orderByDesc('views')->paginate($this->pagination),
                 ]);
             }
 
@@ -278,7 +276,7 @@ public function updatedKeyword($value)
                         ->whereHas('escalas', function ($query){
                             $query->whereBetween('price', [$this->min_price,$this->max_price])
                             ->orwhereBetween('price',[$this->min_price,$this->max_price])->orderBy('price', 'asc');
-                        })->orderBy('new', 'DESC')->orderBy('views', 'DESC')->paginate($this->pagination),
+                        })->orderByDesc('created_at')->orderByDesc('views')->paginate($this->pagination),
                     ]);
                 }else{
                     return view('livewire.products',[
@@ -288,7 +286,7 @@ public function updatedKeyword($value)
                             $query->whereBetween('price', [$this->min_price,$this->max_price])
                             ->orwhereBetween('price',[$this->min_price,$this->max_price])->orderBy('price', 'asc');
                         })
-                        ->where('shipping_free',$this->shipping_price)->orderBy('new', 'DESC')->orderBy('views', 'DESC')->paginate($this->pagination),
+                        ->where('shipping_free',$this->shipping_price)->orderByDesc('created_at')->orderByDesc('views')->paginate($this->pagination),
                     ]);
                 }
                 
@@ -302,7 +300,7 @@ public function updatedKeyword($value)
                         ->whereHas('escalas', function ($query){
                             $query->whereBetween('price', [$this->min_price,$this->max_price])
                             ->orwhereBetween('price',[$this->min_price,$this->max_price])->orderBy('price', 'asc');
-                        })->orderBy('new', 'DESC')->orderBy('views', 'DESC')->paginate($this->pagination),
+                        })->orderByDesc('created_at')->orderByDesc('views')->paginate($this->pagination),
                     ]);
                 }else{
                     return view('livewire.products',[
@@ -311,7 +309,7 @@ public function updatedKeyword($value)
                         ->whereHas('escalas', function ($query){
                             $query->whereBetween('price', [$this->min_price,$this->max_price])
                             ->orwhereBetween('price',[$this->min_price,$this->max_price])->orderBy('price', 'asc');
-                        })->where('shipping_free',$this->shipping_price)->orderBy('new', 'DESC')->orderBy('views', 'DESC')->paginate($this->pagination),
+                        })->where('shipping_free',$this->shipping_price)->orderByDesc('created_at')->orderByDesc('views')->paginate($this->pagination),
                     ]);
                 }
                 
