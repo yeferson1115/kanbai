@@ -1,4 +1,42 @@
 <div class="row" id="list-products">
+    @php
+        $currentProducts = $products->getCollection();
+        $newestProducts = $currentProducts->sortByDesc('created_at')->values();
+        $mostViewedProducts = $currentProducts->sortByDesc('views')->values();
+
+        $usedProducts = [];
+        $interleavedProducts = collect();
+
+        while ($interleavedProducts->count() < $currentProducts->count()) {
+            for ($i = 0; $i < 3; $i++) {
+                while ($newestProducts->isNotEmpty()) {
+                    $candidate = $newestProducts->shift();
+
+                    if (!isset($usedProducts[$candidate->id])) {
+                        $usedProducts[$candidate->id] = true;
+                        $interleavedProducts->push($candidate);
+                        break;
+                    }
+                }
+            }
+
+            while ($mostViewedProducts->isNotEmpty()) {
+                $candidate = $mostViewedProducts->shift();
+
+                if (!isset($usedProducts[$candidate->id])) {
+                    $usedProducts[$candidate->id] = true;
+                    $interleavedProducts->push($candidate);
+                    break;
+                }
+            }
+
+            if ($newestProducts->isEmpty() && $mostViewedProducts->isEmpty()) {
+                break;
+            }
+        }
+
+        $products->setCollection($interleavedProducts);
+    @endphp
 
     <div class="col-md-12 filtro-mobile mb-2 ">
         <div class="row">
