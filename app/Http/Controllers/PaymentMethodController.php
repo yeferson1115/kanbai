@@ -19,7 +19,20 @@ class PaymentMethodController extends Controller
 
     public function create()
     {
-        return view('site.business.payment-methods.create');
+        return view('site.business.payment-methods.create', [
+            'paymentMethod' => null,
+            'isEdit' => false,
+        ]);
+    }
+
+    public function edit(PaymentMethod $paymentMethod)
+    {
+        $this->authorizePaymentMethod($paymentMethod);
+
+        return view('site.business.payment-methods.create', [
+            'paymentMethod' => $paymentMethod,
+            'isEdit' => true,
+        ]);
     }
 
     public function store(Request $request)
@@ -51,6 +64,39 @@ class PaymentMethodController extends Controller
         return redirect()->route('payment-methods.index')->with('success', 'Tarjeta guardada correctamente.');
     }
 
+    public function update(Request $request, PaymentMethod $paymentMethod)
+    {
+        $this->authorizePaymentMethod($paymentMethod);
+
+        $validated = $request->validate([
+            'cardholder_name' => 'required|string|max:120',
+            'document_type' => 'required|string|max:40',
+            'document_number' => 'required|string|max:40',
+            'card_number' => 'nullable|string|min:13|max:23',
+            'exp_month' => 'required|integer|min:1|max:12',
+            'exp_year' => 'required|integer|min:' . date('Y') . '|max:' . (date('Y') + 20),
+            'terms_accepted' => 'accepted',
+        ]);
+
+        $payload = [
+            'cardholder_name' => $validated['cardholder_name'],
+            'document_type' => $validated['document_type'],
+            'document_number' => $validated['document_number'],
+            'exp_month' => (int) $validated['exp_month'],
+            'exp_year' => (int) $validated['exp_year'],
+        ];
+
+        if (!empty($validated['card_number'])) {
+            $cleanCardNumber = preg_replace('/\D+/', '', $validated['card_number']);
+            $payload['brand'] = $this->detectBrand($cleanCardNumber);
+            $payload['last_four'] = substr($cleanCardNumber, -4);
+        }
+
+        $paymentMethod->update($payload);
+
+        return redirect()->route('payment-methods.index')->with('success', 'Tarjeta actualizada correctamente.');
+    }
+
     private function detectBrand($cardNumber)
     {
         if (preg_match('/^4\d{12}(\d{3})?(\d{3})?$/', $cardNumber)) {
@@ -66,5 +112,10 @@ class PaymentMethodController extends Controller
         }
 
         return 'Desconocida';
+    }
+
+    private function authorizePaymentMethod(PaymentMethod $paymentMethod)
+    {
+        abort_if($paymentMethod->business_id !== auth()->user()->business_id, 403);
     }
 }
