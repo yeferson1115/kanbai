@@ -55,7 +55,18 @@
                         </div>
                     </div>
                     </div>
-                    <div class="col-4"></div>
+                    <div class="col-4">
+                        <div class="row" onclick="location.href='{{ route('payment-methods.index') }}'">
+                            <div class="col-12" style="text-align: center;cursor: pointer;">
+                                <label class="icon-indicator-user icon-indicator-user-blue">
+                                    <i class="fa-regular fa-credit-card"></i>
+                                </label>
+                            </div>
+                            <div class="col-12 mt-2">
+                                <label class="label-indicator-info">Pagos</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </li>
@@ -86,7 +97,7 @@
                 </a>                
             </li>
             <li>                
-                <a class="link-menu-user">
+                <a class="link-menu-user" href="{{ route('payment-methods.index') }}">
                     <i class="fa-regular fa-credit-card menu-p-mobil"></i> Métodos de pago
                     <i class="fa fa-chevron-right float-right mt-menu-user" aria-hidden="true"></i>
                 </a>                
