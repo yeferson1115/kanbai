@@ -73,9 +73,9 @@
 <script src="{{ asset('js/app/user/payment-methods.js') }}"></script>
 <style>
     .payment-create-card{border-radius:24px}
-    .title-section{font-size:38px;color:#231B72;font-weight:700}
+    .title-section{font-size:18px;color:#231B72;font-weight:700}
     .input-easy{height:52px;border-radius:14px;border:1px solid #d4d9e3}
-    .btn-save-card{background:#1FB141;color:#fff;border-radius:16px;font-weight:700;padding:13px 44px;font-size:24px}
+    .btn-save-card{background:#1FB141;color:#fff;border-radius:1;padding:7px 44px;font-size:18px}
     .brand-pill{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:12px;background:#eef1ff;color:#231B72;padding:5px 10px;border-radius:20px}
 </style>
 @endpush
