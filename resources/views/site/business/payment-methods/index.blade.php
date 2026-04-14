@@ -43,10 +43,10 @@
 @push('scripts')
 <style>
     .payment-methods-card{border-radius:24px}
-    .title-section{font-size:38px;color:#231B72;font-weight:700}
-    .btn-add-card{background:#1FB141;color:#fff;border-radius:12px;font-weight:600;padding:12px 24px}
+    .title-section{font-size:18px;color:#231B72;font-weight:700}
+    .btn-add-card{background:#1FB141;color:#fff;border-radius:12px;padding:7px 24px}
     .payment-brand{font-weight:700;color:#363636;min-width:130px}
-    .payment-mask,.payment-credit{font-size:24px;font-weight:600;color:#555}
+    .payment-mask,.payment-credit{font-size:16px;font-weight:600;color:#555}
     .payment-link{color:#6b63ff;font-weight:600}
     @media (max-width:768px){
         .title-section{font-size:28px}
